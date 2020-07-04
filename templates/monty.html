@@ -1,0 +1,164 @@
+<html>
+  <style>
+	body{ background-image:url("/static/card_pics/table_top_5.png");
+		width: 100%;
+	    height: 100%;
+	    max-height: 100%;
+		background-size:100% 100%;
+		background-repeat: repeat;}
+  </style>
+  <head>
+    <title>Monty</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+   <body>
+     <fieldset>
+        <form action="#" method="post"> 
+    <!----------------------  Deal button -------------------->   	  
+           <input  class = "new_game_btn" type="submit" name="btn" value="NEW GAME" >    
+    	       <input  class = "deal_btn" type="submit" name="btn" value="D E A L" > 
+    	       <input class="deal_btn" type="submit" name="btn" value="REVEAL">
+    	       <input  class = "deal_btn" type="submit" name="btn" value="REVEAL MONTY" > 
+    	       <!-------------------    GAME LINKS   -------------------->
+    	       &nbsp&nbsp<a href="{{ url_for('redirect_to_seven_card') }}"  style="color:red">7-Card Stud</a>
+    	       &nbsp<a href="{{ url_for('redirect_to_draw') }}"  style="color:red">Draw</a>
+    	       &nbsp<a href="{{ url_for('redirect_to_spit') }}"  style="color:red">Spit</a>
+    	       &nbsp<a href="{{ url_for('redirect_to_omaha') }}"  style="color:red">Omaha</a>
+    	       &nbsp<a href="{{ url_for('redirect_to_five_card_stud') }}"  style="color:red">5-Card Stud</a> 
+    	       &nbsp<a href="{{ url_for('redirect_to_monty') }}"  style="color:red">Monty</a> 
+    	    </form>  
+   </fieldset>
+   <fieldset>                     
+    	<!---------------    UPDATE CARDS button   --------------->
+    	    <button type='button' id ='display_cards'>UPDATE CARDS</button>
+   </fieldset>   		
+	  <h1 style="color:#FFDF00;">A Night of Careful Betting...</h1>
+    <!------------------ The Poker Table ------------------->
+    <hr>
+    <br>	
+	  <table width="500px"  height="50%">
+        	<tr>
+          <td></td><td></td><td></td><td></td>
+          <td></td>
+          <th valign=middle><h3 style="color:#FFDF00;">{{names["player1"]}}</h3></th>
+          <td></td>
+		  <td valign=top><img src="" id="player1_card1" width=80 height=122></td>
+		  <td valign=top><img src="" id="player1_card2" width=80 height=122></td>
+		  <td valign=top><img src="" id="player1_card3" width=80 height=122></td>
+          <td></td><td></td><td></td>          
+          <td valign=top><img src="" id="monty_card1" width=80 height=122></td>
+		  <td valign=top><img src="" id="monty_card2" width=80 height=122></td>
+		  <td valign=top><img src="" id="monty_card3" width=80 height=122></td>
+		  <th valign=middle><h3 style="color:#FFDF00;">Monty</h3></th>
+        </tr>
+        <tr>
+          <td></td>         
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>          
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>          
+        </tr>
+         <tr>
+          <th valign=middle><h3 style="color:#FFDF00;">{{names["player5"]}}</h3></th>
+          <td><img src="" id="player5_card1" width=80 height=122></td>
+		  <td><img src="" id="player5_card2" width=80 height=122></td>
+		  <td><img src="" id="player5_card3" width=80 height=122></td>
+		  <td></td><td></td><td></td>
+          <td><img src="" id="requesting_p1yr_card1" width=80 height=122></td>
+          <td><img src="" id="requesting_p1yr_card2" width=80 height=122></td>
+          <td><img src="" id="requesting_p1yr_card3" width=80 height=122></td>
+          <td></td><td></td><td></td>
+		  <td><img src="" id="player2_card1" width=80 height=122></td>
+		  <td><img src="" id="player2_card2" width=80 height=122></td>
+		  <td><img src="" id="player2_card3" width=80 height=122></td>
+		  <th valign=middle>
+              <h3 style="color:#FFDF00;">{{names["player2"]}}</h3>
+          </th>
+        </tr>
+        <tr>
+          <td></td><td></td><td></td><td></td>                
+          <td></td><td></td>
+          <td></td>
+          <td></td>
+          <td valign=middle>
+            <form action="" method="post">      
+               <input class="hold_drop_btn" type="submit" name="btn" value="HOLD">
+	           <input class="hold_drop_btn" type="submit" name="btn" value="DROP">
+            </form>   
+          </td>
+          <td></td><td></td><td></td><td></td>         
+          <td></td><td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td></td><td></td>
+          <th valign=middle><h3 style="color:#FFDF00;">{{names["player4"]}}</h3>
+          </th>              
+          <td><img src="" id="player4_card1" width=80 height=122></td>
+		  <td><img src="" id="player4_card2" width=80 height=122></td>
+		  <td><img src="" id="player4_card3" width=80 height=122></td>
+		  <td></td><td></td><td></td>
+		  <td></td><td></td>
+		  <td><img src="" id="player3_card1" width=80 height=122></td>
+		  <td><img src="" id="player3_card2" width=80 height=122></td>
+		  <td><img src="" id="player3_card3" width=80 height=122></td>
+		   <th valign=middle align="right">
+              <h3 style="color:#FFDF00;">{{names["player3"]}}</h3>
+          </th>
+          <td></td><td></td><td></td>
+        </tr>
+	  </table> 	
+	<br>
+	
+   </body>
+  <script>
+    $(document).ready(function() {
+       $('#display_cards').click(function(){
+           $.ajax({
+           url: "{{ url_for ('get_img') }}",
+           type: "GET",
+           success: function(response) {
+                $("#monty_card1").attr('src', '/static/' + response["monty"][0]);
+				$("#monty_card2").attr('src', '/static/' + response["monty"][1]);
+				$("#monty_card3").attr('src', '/static/' + response["monty"][2]);
+				$("#requesting_p1yr_card1").attr('src', '/static/' + response["requesting_player"][0]);
+				$("#requesting_p1yr_card2").attr('src', '/static/' + response["requesting_player"][1]);
+				$("#requesting_p1yr_card3").attr('src', '/static/' + response["requesting_player"][2]);
+				$("#player1_card1").attr('src', '/static/' + response["player1"][0]);
+				$("#player1_card2").attr('src', '/static/' + response["player1"][1]);
+				$("#player1_card3").attr('src', '/static/' + response["player1"][2]);
+				$("#player2_card1").attr('src', '/static/' + response["player2"][0]);
+				$("#player2_card2").attr('src', '/static/' + response["player2"][1]);
+				$("#player2_card3").attr('src', '/static/' + response["player2"][2]);
+				$("#player3_card1").attr('src', '/static/' + response["player3"][0]);
+				$("#player3_card2").attr('src', '/static/' + response["player3"][1]);
+				$("#player3_card3").attr('src', '/static/' + response["player3"][2]);
+				$("#player4_card1").attr('src', '/static/' + response["player4"][0]);
+				$("#player4_card2").attr('src', '/static/' + response["player4"][1]);
+				$("#player4_card3").attr('src', '/static/' + response["player4"][2]);
+				$("#player5_card1").attr('src', '/static/' + response["player5"][0]);
+				$("#player5_card2").attr('src', '/static/' + response["player5"][1]);
+				$("#player5_card3").attr('src', '/static/' + response["player5"][2]);
+          },
+          error: function(xhr) {
+            //Do Something to handle error
+         }
+         });
+       });
+    });
+    $(document).ready(function() {
+       $('#go_to_scs_pg').click(function(){
+           $.ajax({
+           url: "{{ url_for ('get_img') }}",
+           type: "GET",
+           success: function(response) {
+				//
+        },
+          error: function(xhr) {
+            //Do Something to handle error
+         }
+         });
+       });
+    });
+  </script>
+</html>

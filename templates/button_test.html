@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+   <body>
+     <button type='button' id ='retrieve'>Update Cards</button>
+    <form action="{{ url_for('fold_test') }}" method="post">
+            <input type="submit" name="btn" value="FOLDY-DOLDY">
+            <input type="submit" name="btn" value="Reveal!">
+    </form>
+	<div>
+     <img src="" id="myimg" width = 7% height = 20%>
+	</div>
+   </body>
+  <script>
+    $(document).ready(function() {
+       $('#retrieve').click(function(){
+           $.ajax({
+           url: "{{ url_for ('get_img') }}",
+           type: "GET",
+           success: function(response) {
+               $("#myimg").attr('src', '/static/' + response[1]);
+          },
+          error: function(xhr) {
+            //Do Something to handle error
+         }
+         });
+       });
+    });
+  </script>
+</html>

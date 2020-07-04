@@ -1,0 +1,67 @@
+<html>
+  <style>
+	body{ background-image:url("/static/card_pics/table_top_1.png");
+		width: 100%;
+	    height: 100%;
+	    max-height: 100%;
+		background-size:100% 100%;
+		background-repeat: no-repeat;}
+ </style>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+   <body>
+     <button type='button' id ='display_cards'>Update Cards</button>
+	<div> <!-- Anurang's Cards -->
+	   <h2> Anubong</h2>
+       <img src="" id="anu_card1" width = 7% height = 20%>
+   	   <img src="" id="anu_card2" width = 7% height = 20%>
+	   <img src = '/static/card_pics/separator.png' height = 20%>
+	   <img src="" id="anu_card3" width = 7% height = 20%>
+       <img src="" id="anu_card4" width = 7% height = 20%>
+	</div>
+	<div> <!-- Bob's Cards -->
+	   <h2> Bobboon</h2>
+       <img src="" id="bob_card1" width = 7% height = 20%>
+   	   <img src="" id="bob_card2" width = 7% height = 20%>
+       <img src = '/static/card_pics/separator.png' height = 20%>
+       <img src="" id="bob_card3" width = 7% height = 20%>
+   	   <img src="" id="bob_card4" width = 7% height = 20%>
+	</div>
+	<div> <!-- Ken's Cards -->
+	   <h2> Cheater</h2>
+       <img src="" id="ken_card1" width = 7% height = 20%>
+   	   <img src="" id="ken_card2" width = 7% height = 20%>
+       <img src = '/static/card_pics/separator.png' height = 20%>       
+	   <img src="" id="ken_card3" width = 7% height = 20%>
+   	   <img src="" id="ken_card4" width = 7% height = 20%>
+	</div>
+   </body>
+  <script>
+    $(document).ready(function() {
+       $('#display_cards').click(function(){
+           $.ajax({
+           url: "{{ url_for ('get_img') }}",
+           type: "GET",
+           success: function(response) {
+			   $("#anu_card1").attr('src', '/static/' + response["anurang"][0]);
+			   $("#anu_card2").attr('src', '/static/' + response["anurang"][1]);
+			   $("#anu_card3").attr('src', '/static/' + response["anurang"][2]);
+     		   $("#anu_card4").attr('src', '/static/' + response["anurang"][3]);
+               $("#bob_card1").attr('src', '/static/' + response["bob"][0]);
+			   $("#bob_card2").attr('src', '/static/' + response["bob"][1]);
+			   $("#bob_card3").attr('src', '/static/' + response["bob"][2]);
+			   $("#bob_card4").attr('src', '/static/' + response["bob"][3]);
+    		   $("#ken_card1").attr('src', '/static/' + response["ken"][0]);
+			   $("#ken_card2").attr('src', '/static/' + response["ken"][1]);
+			   $("#ken_card3").attr('src', '/static/' + response["ken"][2]);
+			   $("#ken_card4").attr('src', '/static/' + response["ken"][3]);
+          },
+          error: function(xhr) {
+            //Do Something to handle error
+         }
+         });
+       });
+    });
+  </script>
+</html>

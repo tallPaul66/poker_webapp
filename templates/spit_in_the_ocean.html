@@ -1,0 +1,203 @@
+<html>
+  <style>
+	body{ background-image:url("/static/card_pics/table_top_5.png");
+		width: 100%;
+	    height: 100%;
+	    max-height: 100%;
+		background-size:100% 100%;
+		background-repeat: repeat;}
+  </style>
+  <head>
+    <title>Spit in the Ocean</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+   <body>
+     <fieldset>
+        <form action="#" method="post"> 
+    <!----------------------  Deal button -------------------->   	  
+           <input  class = "new_game_btn" type="submit" name="btn" value="NEW GAME" >    
+    	       <input  class = "deal_btn" type="submit" name="btn" value="D E A L" > 
+    	       <input  class = "deal_btn" type="submit" name="btn" value="REVEAL SPIT" > 
+    	       <!-------------------    GAME LINKS   -------------------->
+    	    &nbsp&nbsp<a href="{{ url_for('redirect_to_seven_card') }}"  style="color:red">7-Card Stud</a>
+    	    &nbsp<a href="{{ url_for('redirect_to_draw') }}"  style="color:red">Draw</a>
+    	    &nbsp<a href="{{ url_for('redirect_to_spit') }}"  style="color:red">Spit</a>
+    	    &nbsp<a href="{{ url_for('redirect_to_omaha') }}"  style="color:red">Omaha</a>
+    	    &nbsp<a href="{{ url_for('redirect_to_five_card_stud') }}"  style="color:red">5-Card Stud</a> 
+    	    &nbsp<a href="{{ url_for('redirect_to_monty') }}"  style="color:red">Monty</a>   
+   </fieldset>
+   <fieldset>
+    <!---------------  Fold and Reveal buttons ---------------> 
+           <input class="submit_btn1" type="submit" name="btn" value="FOLDY-DOLDY">
+	       <input class="submit_btn1" type="submit" name="btn" value="REVEAL">
+        </form>             
+    	<!---------------    UPDATE CARDS button   --------------->
+    	    <button type='button' id ='display_cards'>UPDATE CARDS</button>
+   </fieldset>   		
+	  <h1 style="color:#FFDF00;">~ Spit or Hootenanny ~</h1>
+    <!------------------ The Poker Table ------------------->
+    <hr>
+    <br>	
+	  <table width="500px"  height="50%">
+        	<tr>
+          <td></td><td></td><td></td><td></td>
+          <td></td>
+          <th valign=middle><h3>{{names["player1"]}}</h3></th>
+          <td valign=top><img src="" id="player1_card1" width=80 height=122></td>
+		  <td valign=top><img src="" id="player1_card2" width=80 height=122></td>
+		  <td valign=top><img src="" id="player1_card3" width=80 height=122></td>
+		  <td valign=top><img src="" id="player1_card4" width=80 height=122></td>
+		  <td valign=top><img src="" id="player1_card5" width=80 height=122></td>
+          <td></td><td></td>
+           <th valign=middle><h3 style="color:#FFDF00;">The Spit</h3></th>
+          <td valign=top><img src="" id="spit" width=80 height=122></td>
+          <td></td><td></td>
+        </tr>
+        <tr>
+          <th valign=bottom>
+              <br><br><br>
+              <h3 style="color:#FFDF00;">{{names["player5"]}}</h3>
+          </th>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>          
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td>
+          <th valign=bottom>
+              <h3 style="color:#FFDF00;">{{names["player2"]}}</h3>
+          </th>
+        </tr>
+         <tr>
+          <td><img src="" id="player5_card1" width=80 height=122></td>
+		  <td><img src="" id="player5_card2" width=80 height=122></td>
+		  <td><img src="" id="player5_card3" width=80 height=122></td>
+		  <td><img src="" id="player5_card4" width=80 height=122></td>
+		  <td><img src="" id="player5_card5" width=80 height=122></td>
+		  <td></td>
+		  <td><img src="" id="requesting_p1yr_card1" width=80 height=122></td>
+          <td><img src="" id="requesting_p1yr_card2" width=80 height=122></td>
+          <td><img src="" id="requesting_p1yr_card3" width=80 height=122></td>
+          <td><img src="" id="requesting_p1yr_card4" width=80 height=122></td>
+          <td><img src="" id="requesting_p1yr_card5" width=80 height=122></td>
+		  <td></td>		  
+          <td><img src="" id="player2_card1" width=80 height=122></td>
+		  <td><img src="" id="player2_card2" width=80 height=122></td>
+		  <td><img src="" id="player2_card3" width=80 height=122></td>
+		  <td><img src="" id="player2_card4" width=80 height=122></td>
+		  <td><img src="" id="player2_card5" width=80 height=122></td>
+        </tr>
+        <tr>
+          <td></td><td></td><td></td>
+          <th valign=bottom>
+              <br><br><br>
+              <h3 style="color:#FFDF00;">{{names["player4"]}}</h3>
+          </th>          
+          <td></td><td></td>
+          <td valign=top>
+		  <form action="" method="post">
+            <input type="radio" id="card1Hld" name="card1" value="hold" checked="checked"><label for="card1Hld" style="color:yellow;">Hold</label><br>
+            <input type="radio" id="card1Dis" name="card1" value="discard"><label for="card1Dis" style="color:#DC143C; font-weight:bold;">Discard</label>           
+          </td>
+          <td valign=top>
+            <input type="radio" id="card2Hld" name="card2" value="hold" checked="checked"><label for="card2Hld" style="color:yellow;">Hold</label><br>
+            <input type="radio" id="card2Dis" name="card2" value="discard"><label for="card2Dis" style="color:#DC143C; font-weight:bold;">Discard</label>            
+          </td>
+          <td valign=top>
+            <input type="radio" id="card3Hld" name="card3" value="hold" checked="checked"><label for="card3Hld" style="color:yellow;">Hold</label><br>
+            <input type="radio" id="card3Dis" name="card3" value="discard"><label for="card3Dis" style="color:#DC143C; font-weight:bold;">Discard</label>      
+            <p></p><input type=submit class="submit_btn2" name="btn" value="Draw">
+          </td>
+          <td valign=top>
+            <input type="radio" id="card4Hld" name="card4" value="hold" checked="checked"><label for="card4Hld" style="color:yellow;">Hold</label><br>
+            <input type="radio" id="card4Dis" name="card4" value="discard"><label for="card4Dis" style="color:#DC143C; font-weight:bold;">Discard</label>            
+          </td>
+          <td valign=top>
+            <input type="radio" id="card5Hld" name="card5" value="hold" checked="checked"><label for="card5Hld" style="color:yellow;">Hold</label><br>
+            <input type="radio" id="card5Dis" name="card5" value="discard"><label for="card5Dis" style="color:#DC143C; font-weight:bold;">Discard</label>
+          </form>
+          </td><td></td><td></td>
+          <th valign=bottom align="right">
+              <h3 style="color:#FFDF00;">{{names["player3"]}}</h3>
+          </th>
+          <td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td></td><td></td><td></td>          
+          <td><img src="" id="player4_card1" width=80 height=122></td>
+		  <td><img src="" id="player4_card2" width=80 height=122></td>
+		  <td><img src="" id="player4_card3" width=80 height=122></td>
+		  <td><img src="" id="player4_card4" width=80 height=122></td>
+		  <td><img src="" id="player4_card5" width=80 height=122></td>
+		  <td></td>
+		  <td><img src="" id="player3_card1" width=80 height=122></td>
+		  <td><img src="" id="player3_card2" width=80 height=122></td>
+		  <td><img src="" id="player3_card3" width=80 height=122></td>
+		  <td><img src="" id="player3_card4" width=80 height=122></td>
+		  <td><img src="" id="player3_card5" width=80 height=122></td>
+          <td></td><td></td><td></td>
+        </tr>
+	  </table> 	
+	<br>
+	
+   </body>
+  <script>
+    $(document).ready(function() {
+       $('#display_cards').click(function(){
+           $.ajax({
+           url: "{{ url_for ('get_img') }}",
+           type: "GET",
+           success: function(response) {
+                $("#spit").attr('src', '/static/' + response["spit"][0]);
+				$("#requesting_p1yr_card1").attr('src', '/static/' + response["requesting_player"][0]);
+				$("#requesting_p1yr_card2").attr('src', '/static/' + response["requesting_player"][1]);
+				$("#requesting_p1yr_card3").attr('src', '/static/' + response["requesting_player"][2]);
+				$("#requesting_p1yr_card4").attr('src', '/static/' + response["requesting_player"][3]);
+				$("#requesting_p1yr_card5").attr('src', '/static/' + response["requesting_player"][4]);
+				$("#player1_card1").attr('src', '/static/' + response["player1"][0]);
+				$("#player1_card2").attr('src', '/static/' + response["player1"][1]);
+				$("#player1_card3").attr('src', '/static/' + response["player1"][2]);
+				$("#player1_card4").attr('src', '/static/' + response["player1"][3]);
+				$("#player1_card5").attr('src', '/static/' + response["player1"][4]);
+				$("#player2_card1").attr('src', '/static/' + response["player2"][0]);
+				$("#player2_card2").attr('src', '/static/' + response["player2"][1]);
+				$("#player2_card3").attr('src', '/static/' + response["player2"][2]);
+				$("#player2_card4").attr('src', '/static/' + response["player2"][3]);
+				$("#player2_card5").attr('src', '/static/' + response["player2"][4]);
+				$("#player3_card1").attr('src', '/static/' + response["player3"][0]);
+				$("#player3_card2").attr('src', '/static/' + response["player3"][1]);
+				$("#player3_card3").attr('src', '/static/' + response["player3"][2]);
+				$("#player3_card4").attr('src', '/static/' + response["player3"][3]);
+				$("#player3_card5").attr('src', '/static/' + response["player3"][4]);
+				$("#player4_card1").attr('src', '/static/' + response["player4"][0]);
+				$("#player4_card2").attr('src', '/static/' + response["player4"][1]);
+				$("#player4_card3").attr('src', '/static/' + response["player4"][2]);
+				$("#player4_card4").attr('src', '/static/' + response["player4"][3]);
+				$("#player4_card5").attr('src', '/static/' + response["player4"][4]);
+				$("#player5_card1").attr('src', '/static/' + response["player5"][0]);
+				$("#player5_card2").attr('src', '/static/' + response["player5"][1]);
+				$("#player5_card3").attr('src', '/static/' + response["player5"][2]);
+				$("#player5_card4").attr('src', '/static/' + response["player5"][3]);
+				$("#player5_card5").attr('src', '/static/' + response["player5"][4]);
+          },
+          error: function(xhr) {
+            //Do Something to handle error
+         }
+         });
+       });
+    });
+    $(document).ready(function() {
+       $('#go_to_scs_pg').click(function(){
+           $.ajax({
+           url: "{{ url_for ('get_img') }}",
+           type: "GET",
+           success: function(response) {
+				//
+        },
+          error: function(xhr) {
+            //Do Something to handle error
+         }
+         });
+       });
+    });
+  </script>
+</html>

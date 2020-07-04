@@ -1,0 +1,158 @@
+<html>
+  <style>
+	body{ background-image:url("/static/card_pics/table_top_5.png");
+		width: 100%;
+	    height: 100%;
+	    max-height: 100%;
+		background-size:100% 100%;
+		background-repeat: repeat;}
+  </style>
+  <head>
+    <title>Paul's Poker with Friends</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+   <body>
+      
+	    
+	    
+        <form action="#" method="post" >
+    	      
+    	    <input type="submit"  class = "deal_btn" name="btn" value="D E A L" >
+
+   <!---------------  Fold and Reveal buttons ---------------> 
+          <input class="submit_btn1" type="submit" name="btn" value="FOLDY-DOLDY">
+	      <input class="submit_btn1" type="submit" name="btn" value="REVEAL">
+        </form>    
+        
+    	<!---------------    UPDATE CARDS button   --------------->
+    	    <button type='button' id ='display_cards'>UPDATE CARDS</button>
+    	    <a href="{{ url_for('redirect_to_seven_card') }}"  style="color:red">7-card stud</a> 	
+	  
+    <!------------------ Player's Cards ------------------->
+    <hr>
+    <br>
+	
+	  <table style="table-layout: fixed; width:1200px; height:800px;"  height="80% border="5" align="left">
+        	<tr height= 20%>
+          <td></td><td></td><td></td><td></td><td></td><td></td>
+          <td><img src="" id="anurang_card1" width = 90 height = 175></td>
+		  <td><img src="" id="anurang_card2" width = 90 height = 175></td>
+		  <td><img src="" id="anurang_card3" width = 90 height = 175></td>
+		  <td><img src="" id="anurang_card4" width = 90 height = 175></td>
+		  <td><img src="" id="anurang_card5" width = 90 height = 175></td>
+          <td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <th valign=bottom><p>Steve</p></th>
+          <td></td><td></td><td></td><td></td><td></td>
+          <td><img src="" id="requesting_p1yr_card1" width = 75% height = 15%></td>
+          <td><img src="" id="requesting_p1yr_card2" width = 75% height = 15%></td>
+          <td><img src="" id="requesting_p1yr_card3" width = 75% height = 15%></td>
+          <td><img src="" id="requesting_p1yr_card4" width = 75% height = 15%></td>
+          <td><img src="" id="requesting_p1yr_card5" width = 75% height = 15%></td>
+          <td></td>
+          <th valign=bottom>Bob</th><td></td><td></td><td></td><td></td>
+        </tr>
+         <tr>
+          <td><img src="" id="steve_card1" width = 90 height = 175></td>
+		  <td><img src="" id="steve_card2" width = 90 height = 175></td>
+		  <td><img src="" id="steve_card3" width = 90 height = 175></td>
+		  <td><img src="" id="steve_card4" width = 90 height = 175></td>
+		  <td><img src="" id="steve_card5" width = 90 height = 175></td>
+		  <td></td><td></td><td></td><td></td><td></td><td></td><td></td>		  
+          <td><img src="" id="bob_card1" width = 90 height = 175></td>
+		  <td><img src="" id="bob_card2" width = 90 height = 175></td>
+		  <td><img src="" id="bob_card3" width = 90 height = 175></td>
+		  <td><img src="" id="bob_card4" width = 90 height = 175></td>
+		  <td><img src="" id="bob_card5" width = 90 height = 175></td>
+        </tr>
+        <tr>
+          <td></td><td></td><td></td>
+          <th valign=bottom><h3 style="color:#FFDF00;"> Chafe</h3></th>
+          <td></td><td></td><td></td><td></td><td></td>
+          <th valign=bottom>Ken</th>
+          <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td></td><td></td><td></td>
+          <td><img src="" id="paul_card1" width = 90 height = 175></td>
+		  <td><img src="" id="paul_card2" width = 90 height = 175></td>
+		  <td><img src="" id="paul_card3" width = 90 height = 175></td>
+		  <td><img src="" id="paul_card4" width = 90 height = 175></td>
+		  <td><img src="" id="paul_card5" width = 90 height = 175></td>
+		  <td></td>
+		  <td><img src="" id="ken_card1" width = 90 height = 175></td>
+		  <td><img src="" id="ken_card2" width = 90 height = 175></td>
+		  <td><img src="" id="ken_card3" width = 90 height = 175></td>
+		  <td><img src="" id="ken_card4" width = 90 height = 175></td>
+		  <td><img src="" id="ken_card5" width = 90 height = 175></td>
+          <td></td><td></td><td></td>
+        </tr>
+	  </table> 	
+	<br>
+	
+    <!------------------ Anurang's Cards ------------------->
+ 	<!------------------ Bob's Cards ------------------->
+	<!------------------ Ken's Cards ------------------->
+
+		
+	<!------------------ Paul's Cards ------------------->
+	<!------------------ Steve's Cards ------------------->
+   </body>
+  <script>
+    $(document).ready(function() {
+       $('#display_cards').click(function(){
+           $.ajax({
+           url: "{{ url_for ('get_img') }}",
+           type: "GET",
+           success: function(response) {
+				
+				$("#anurang_card1").attr('src', '/static/' + response["anurang"][0]);
+				$("#anurang_card2").attr('src', '/static/' + response["anurang"][1]);
+				$("#anurang_card3").attr('src', '/static/' + response["anurang"][2]);
+				$("#anurang_card4").attr('src', '/static/' + response["anurang"][3]);
+				$("#anurang_card5").attr('src', '/static/' + response["anurang"][4]);
+				$("#bob_card1").attr('src', '/static/' + response["bob"][0]);
+				$("#bob_card2").attr('src', '/static/' + response["bob"][1]);
+				$("#bob_card3").attr('src', '/static/' + response["bob"][2]);
+				$("#bob_card4").attr('src', '/static/' + response["bob"][3]);
+				$("#bob_card5").attr('src', '/static/' + response["bob"][4]);
+				$("#ken_card1").attr('src', '/static/' + response["ken"][0]);
+				$("#ken_card2").attr('src', '/static/' + response["ken"][1]);
+				$("#ken_card3").attr('src', '/static/' + response["ken"][2]);
+				$("#ken_card4").attr('src', '/static/' + response["ken"][3]);
+				$("#ken_card5").attr('src', '/static/' + response["ken"][4]);
+				$("#paul_card1").attr('src', '/static/' + response["paul"][0]);
+				$("#paul_card2").attr('src', '/static/' + response["paul"][1]);
+				$("#paul_card3").attr('src', '/static/' + response["paul"][2]);
+				$("#paul_card4").attr('src', '/static/' + response["paul"][3]);
+				$("#paul_card5").attr('src', '/static/' + response["paul"][4]);
+				$("#steve_card1").attr('src', '/static/' + response["steve"][0]);
+				$("#steve_card2").attr('src', '/static/' + response["steve"][1]);
+				$("#steve_card3").attr('src', '/static/' + response["steve"][2]);
+				$("#steve_card4").attr('src', '/static/' + response["steve"][3]);
+				$("#steve_card5").attr('src', '/static/' + response["steve"][4]);
+          },
+          error: function(xhr) {
+            //Do Something to handle error
+         }
+         });
+       });
+    });
+    $(document).ready(function() {
+       $('#go_to_scs_pg').click(function(){
+           $.ajax({
+           url: "{{ url_for ('get_img') }}",
+           type: "GET",
+           success: function(response) {
+				//
+        },
+          error: function(xhr) {
+            //Do Something to handle error
+         }
+         });
+       });
+    });
+  </script>
+</html>
